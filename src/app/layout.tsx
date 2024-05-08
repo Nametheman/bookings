@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
+import blob from "@/assets/images/blob.png";
+import Sidebar from "@/components/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${inter.className} bg-[#E3F2F1] h-screen w-screen relative overflow-hidden flex justify-center items-center`}
+      >
+        <div className="absolute top-[-200px] left-[-170px]">
+          <Image src={blob} alt="blob" className="w-[500px]" />
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          className="absolute bottom-[7rem] transform scale-y-[2] scale-x-[1]"
+        >
+          <path
+            fill="#CADFDE"
+            fill-opacity="1"
+            d="M0,160L80,138.7C160,117,320,75,480,101.3C640,128,800,224,960,218.7C1120,213,1280,107,1360,53.3L1440,0L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+          ></path>
+        </svg>
+        <section className="w-[95%] max-w-[calc(1440px-300px)] m-auto h-[95%] relative z-1">
+          <section className="w-full h-full bg-[#E1ECEB] wrapper rounded-[1.4rem] overflow-hidden grid grid-cols-11">
+            <Sidebar />
+            <div className="col-span-9">{children}</div>
+          </section>
+        </section>
+      </body>
     </html>
   );
 }

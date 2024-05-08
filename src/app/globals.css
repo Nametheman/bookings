@@ -2,32 +2,178 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
   }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+} */
+
+.wrapper {
+  filter: drop-shadow(0px 42px 25px #656565);
+}
+.activeTab {
+  background-color: #435b5a;
+  color: white;
+  width: 100%;
+  border-radius: 9999px;
+  height: 100%;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.tab {
+  color: #435b5a;
+  width: 100%;
+  border-radius: 9999px;
+  height: 100%;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.aviShadow {
+  box-shadow: 0px 0px 15px -3px rgba(212, 212, 212, 0.44) inset;
+  -webkit-box-shadow: 0px 0px 15px -3px rgba(212, 212, 212, 0.44) inset;
+  -moz-box-shadow: 0px 0px 15px -3px rgba(212, 212, 212, 0.44) inset;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.navLink {
+  /* transition: all 0.3s linear; */
+}
+.navLink p {
+  color: #d2d2d2;
+  font-size: 12px;
+}
+
+.activeSideLink {
+  border-top-left-radius: 9999px;
+  border-bottom-left-radius: 9999px;
+  background-color: #e1eceb;
+  position: relative;
+  transition: none;
+}
+.activeSideLink::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  top: -20px;
+  right: 0;
+  border-bottom-right-radius: 20px;
+  box-shadow: 5px 5px 0 5px #e1eceb;
+  transition: none;
+}
+.activeSideLink::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  bottom: -20px;
+  right: 0;
+  border-top-right-radius: 20px;
+  box-shadow: 5px -5px 0 5px #e1eceb;
+  transition: none;
+}
+.activeSideLink p {
+  color: #435b5a;
+}
+
+.navLink:hover,
+.navLink p {
+}
+
+.rs-slider-progress-bar {
+  background-color: #c99c33 !important;
+}
+
+.rs-slider-handle {
+  background-color: #c99c33 !important;
+}
+
+.rs-slider-handle::before {
+  background-color: #c99c33 !important;
+  border: none !important;
+}
+
+.rs-tooltip {
+  background-color: #c99c33 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+.rs-tooltip[class*="placement-top"]::after {
+  border-top-color: #c99c33 !important;
+  top: -6px !important;
+  bottom: unset !important;
+  transform: rotate(-180deg) !important;
+}
+
+.rs-slider-handle:hover .rs-tooltip,
+.rs-slider-handle.active .rs-tooltip {
+  bottom: -50px !important;
+  top: unset !important;
 }
