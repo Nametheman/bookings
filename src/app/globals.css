@@ -76,6 +76,7 @@
 .wrapper {
   filter: drop-shadow(0px 42px 25px #656565);
 }
+
 .activeTab {
   background-color: #435b5a;
   color: white;
@@ -176,4 +177,34 @@
 .rs-slider-handle.active .rs-tooltip {
   bottom: -50px !important;
   top: unset !important;
+}
+
+@media only screen and (max-width: 1149px) {
+  .wrapper {
+    filter: none;
+  }
+  .activeSideLink::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    top: -0;
+    right: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 5px 5px 0 5px #e1eceb;
+    transition: none;
+  }
+  .activeSideLink::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    bottom: -0;
+    right: 0;
+    border-top-right-radius: 0;
+    box-shadow: 5px -5px 0 5px #e1eceb;
+    transition: none;
+  }
 }

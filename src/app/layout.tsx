@@ -4,6 +4,7 @@ import "./globals.css";
 import Image from "next/image";
 import blob from "@/assets/images/blob.png";
 import Sidebar from "@/components/Sidebar";
+import MobileNav from "@/components/MobileNav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-[#E3F2F1] h-screen w-screen relative overflow-hidden flex justify-center items-center`}
+        className={`${inter.className} bg-[#E3F2F1] h-screen w-screen relative lg:overflow-hidden flex justify-center items-center`}
       >
         <div className="absolute top-[-200px] left-[-170px]">
           <Image src={blob} alt="blob" className="w-[500px]" />
@@ -36,10 +37,11 @@ export default function RootLayout({
             d="M0,160L80,138.7C160,117,320,75,480,101.3C640,128,800,224,960,218.7C1120,213,1280,107,1360,53.3L1440,0L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
           ></path>
         </svg>
-        <section className="w-[95%] max-w-[calc(1440px-300px)] m-auto h-[95%] relative z-1">
-          <section className="w-full h-full bg-[#E1ECEB] wrapper rounded-[1.4rem] overflow-hidden grid grid-cols-11">
+        <section className="w-full h-full lg:w-[95%] max-w-[calc(1440px-300px)] m-auto lg:h-[95%] relative z-1">
+          <section className="w-full h-full bg-[#E1ECEB] wrapper lg:rounded-[1.4rem] lg:overflow-hidden sm:grid grid-cols-10 lg:grid-cols-11 px-2 lg:px-0">
+            <MobileNav />
             <Sidebar />
-            <div className="col-span-9">{children}</div>
+            <div className="col-span-10 sm:col-span-9">{children}</div>
           </section>
         </section>
       </body>

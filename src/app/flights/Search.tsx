@@ -22,10 +22,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FlightModeType } from "@/types/types";
+import { FlightModeType, UserFilterType } from "@/types/types";
 import { MdEventSeat } from "react-icons/md";
+import { useFormik } from "formik";
+import useFlightDataStore from "@/store/useFlightData";
 
 const Search = () => {
+  const { filterFlightDataSearch } = useFlightDataStore();
   const [date, setDate] = useState<Date>();
   const [numberOfTravellers, setTravellers] = useState<number>(1);
   const [flightClassSelected, setFlightClassSelected] =
@@ -45,27 +48,84 @@ const Search = () => {
     { value: "multi-city", label: "Multi City" },
   ];
 
+  const initialSearchValues: UserFilterType = {
+    startLocation: "",
+    destination: "",
+    startAirport: "",
+    destinationAirport: "",
+    startTime: "",
+    numberOfTravellers: 1,
+    flightClass: "first class",
+    flightType: "one-way",
+  };
+
+  const onSubmit = (data: UserFilterType) => {
+    console.log(data);
+    filterFlightDataSearch(data);
+  };
+
+  const { values, handleSubmit, handleReset, setValues } = useFormik({
+    initialValues: initialSearchValues,
+    onSubmit,
+  });
+
   return (
-    <div className="bg-white w-full rounded-[2rem] grid grid-cols-12 p-6 gap-x-6 mt-6">
+    <div className="bg-white w-full rounded-[2rem] flex flex-col gap-y-6 lg:grid grid-cols-12 p-2 lg:p-6 lg:gap-x-6 mt-6">
+      <form action="" onSubmit={handleSubmit} className="hidden">
+        <input type="text" name="startLocation" value={values.startLocation} />
+        <input type="text" name="destination" value={values.destination} />
+        <input type="text" name="startAirport" value={values.startAirport} />
+        <input
+          type="text"
+          name="destinationAirport"
+          value={values.destinationAirport}
+        />
+        <input type="date" name="date" value={values.startTime} />
+        <input
+          type="number"
+          name="numberOfTravellers"
+          value={values.numberOfTravellers}
+        />
+        <input
+          type="text"
+          name="flightClass"
+          value={values.flightClass}
+          onChange={(e) => setFlightClassSelected(e.target.value)}
+        />
+        <input
+          type="text"
+          name="flightType"
+          value={values.flightType}
+          onChange={(e) => setSelectedFlightType(e.target.value)}
+        />
+      </form>
       <div className="col-span-7 flex flex-col gap-6">
-        <div className="flex bg-[#E1ECEB] rounded-full h-[45px] px-[1.5rem] gap-[1.5rem] items-center">
-          <div className="flex-1 flex items-center gap-2">
+        <div className="flex bg-[#E1ECEB] rounded-full h-[45px] px-[1.5rem] gap-[1.5rem] items-center justify-between">
+          <div className="flex items-center gap-2">
             <ImLocation size={20} color="#3C5754" />
             <input
               type="text"
               className="h-full w-full bg-transparent outline-none border-none focus-within:ring-0 focus-visible:ring-0 text-[#435B5A] text-xs font-medium"
-              placeholder="Start Location"
+              placeholder="Start Location/Airport"
+              value={values.startLocation}
+              onChange={(e) =>
+                setValues({ ...values, startLocation: e.target.value })
+              }
             />
           </div>
-          <div className="bg-[#3b4b48] w-[40px] h-[40px] flex justify-center items-center rounded-full">
+          <div className="bg-[#3b4b48] w-[40px] h-[40px] flex justify-center items-center rounded-full cursor-pointer">
             <TbArrowsExchange size={20} color="white" />
           </div>
-          <div className="flex-1 border flex items-center gap-2">
+          <div className="border flex items-center gap-2">
             <ImLocation size={20} color="#3C5754" />
             <input
               type="text"
               className="h-full w-full bg-transparent outline-none border-none focus-within:ring-0 focus-visible:ring-0 text-[#435B5A] text-xs font-medium"
-              placeholder="End Destination"
+              placeholder="End Destination/Airport"
+              value={values.destination}
+              onChange={(e) =>
+                setValues({ ...values, destination: e.target.value })
+              }
             />
           </div>
         </div>
@@ -73,10 +133,11 @@ const Search = () => {
           value={selectedFlightType}
           onValueChange={(value) => {
             setSelectedFlightType(value);
+            setValues({ ...values, flightType: value });
           }}
           className="w-full border rounded-full bg-[#E1ECEB] h-[45px] flex items-center"
         >
-          <TabsList className="w-full space-x-6 px-[2px] py-0">
+          <TabsList className="w-full space-x-1 lg:space-x-6 px-[2px] py-0">
             {searchFlightType.map((type: FlightModeType) => {
               return (
                 <TabsTrigger
@@ -92,7 +153,7 @@ const Search = () => {
         </Tabs>{" "}
       </div>
       <div className="col-span-5 flex flex-col gap-6">
-        <div className="flex gap-x-6">
+        <div className="flex gap-x-1 lg:gap-x-6">
           <div className="flex-1 bg-[#E1ECEB] rounded-full h-[45px] px-6 flex items-center">
             <Popover>
               <PopoverTrigger asChild>
@@ -115,7 +176,17 @@ const Search = () => {
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={setDate}
+                  onSelect={(selectedDate) => {
+                    console.log(selectedDate);
+                    const dateObject = new Date(selectedDate as Date);
+                    console.log(dateObject);
+                    setDate(selectedDate);
+
+                    setValues({
+                      ...values,
+                      startTime: format(dateObject, "yyyy-MM-dd'T'HH:mm:ss"),
+                    });
+                  }}
                   initialFocus
                   className="text-white "
                 />
@@ -125,16 +196,25 @@ const Search = () => {
           <div className="flex-1 bg-[#E1ECEB] rounded-full h-[45px] flex items-center px-6 gap-2">
             <FaUser color="#435B5A" size={14} />
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-[#435B5A] text-xs font-medium outline-none">
+              <DropdownMenuTrigger className="text-[#435B5A] text-[0.7rem] font-medium outline-none">
                 {numberOfTravellers}{" "}
-                {numberOfTravellers === 1 ? "TRAVELER" : "TRAVELLERS"}
+                {numberOfTravellers === 1 ? "TRAVELLER" : "TRAVELLERS"}
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-[#3C5754] text-white mt-2">
                 <DropdownMenuLabel>Travellers</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {travellers.map((traveller) => (
                   <div key={traveller}>
-                    <DropdownMenuItem onClick={() => setTravellers(traveller)}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setTravellers(traveller);
+                        console.log(traveller);
+                        setValues({
+                          ...values,
+                          numberOfTravellers: traveller,
+                        });
+                      }}
+                    >
                       {traveller}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
@@ -144,7 +224,7 @@ const Search = () => {
             </DropdownMenu>
           </div>
         </div>
-        <div className="flex gap-x-6">
+        <div className="flex gap-x-1 lg:gap-x-6">
           <div className="flex-1 bg-[#E1ECEB] rounded-full h-[45px] px-6 flex items-center gap-2">
             <MdEventSeat color="#435B5A" />{" "}
             <DropdownMenu>
@@ -161,7 +241,13 @@ const Search = () => {
                 {flightClass.map((fClass) => (
                   <div key={fClass.value}>
                     <DropdownMenuItem
-                      onClick={() => setFlightClassSelected(fClass.value)}
+                      onClick={() => {
+                        setFlightClassSelected(fClass.value);
+                        setValues({
+                          ...values,
+                          flightClass: fClass.value,
+                        });
+                      }}
                     >
                       {fClass.label}
                     </DropdownMenuItem>
@@ -171,7 +257,12 @@ const Search = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <button className="flex-1 bg-[#C99C33] rounded-full h-[45px] flex items-center justify-center px-6 text-xs text-white">
+          <button
+            className="flex-1 bg-[#C99C33] rounded-full h-[45px] flex items-center justify-center px-6 text-xs text-white"
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
             SEARCH
           </button>
         </div>

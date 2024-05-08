@@ -35,7 +35,7 @@ const Sidebar = () => {
   }, [pathname]);
 
   return (
-    <nav className="h-full bg-[#435B5A] grid grid-rows-12 col-span-2 rounded-r-[2rem] overflow-hidden sticky left-0 top-0">
+    <nav className="h-full bg-[#435B5A] lg:grid grid-rows-12 col-span-2 rounded-r-[2rem] overflow-hidden sticky left-0 top-0 hidden">
       <div className="row-span-4 bg-[#3C5754] h-[200px] flex justify-center items-center">
         <div className="flex justify-center items-center flex-col gap-1">
           <div className="w-[100px] h-[100px] rounded-full border-r-[#C99C33] border-r-2 border-l-2 border-l-[#c99c3388] border-b-2 border-b-[#c99c33d6] flex justify-center items-center aviShadow">

@@ -24,3 +24,16 @@ export type FlightClassType = {
   value: string;
   label: string;
 };
+export type UserFilterType = {
+  startLocation?: string;
+  startAirport?: string;
+  destination?: string;
+  destinationAirport?: string;
+  startTime?: string;
+  flightType?: string;
+  flightClass?: string;
+  flightMode?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  numberOfTravellers: number;
+};
