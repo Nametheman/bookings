@@ -14,7 +14,7 @@ const Checkout = () => {
   );
 
   return (
-    <div className="col-span-5 h-[91%] bg-[#435B5A] rounded-[1.5rem] p-6 shadow-2xl relative">
+    <div className="col-span-5 h-[91%] bg-[#435B5A] rounded-[1.5rem] p-2 md:p-4 lg:p-6 shadow-2xl relative">
       <div className="flex-col flex gap-6">
         <div className="text-[#e8e8e8] text-sm border-b py-2 flex justify-between">
           <p>Start Location:</p>
@@ -74,7 +74,7 @@ const Checkout = () => {
           </p>
         </div>
       </div>
-      <button className="flex-1 bg-[#C99C33] rounded-full h-[45px] flex items-center justify-center text-sm font-medium text-white absolute bottom-6 w-auto left-0 right-0 mx-6">
+      <button className="flex-1 bg-[#C99C33] rounded-full h-[45px] flex items-center justify-center text-sm font-medium text-white mt-10 lg:mt-0 lg:absolute bottom-6 w-full left-0 right-0 lg:mx-6">
         Checkout (${flight?.price})
       </button>
     </div>

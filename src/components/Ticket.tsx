@@ -34,8 +34,8 @@ const Ticket: React.FC<TicketProps> = ({
           : ""
       } bg-white w-full h-[150px] px-[1.2rem] py-[1.8rem] relative  border-dashed border-b-[3px]`}
     >
-      <div className="h-full flex items-center">
-        <div className="flex-[0.6]">
+      <div className="h-full flex items-center gap-4">
+        <div className="md:flex-[0.6]">
           <Image
             src={
               flight.airline === "Delta Airlines"
@@ -47,21 +47,23 @@ const Ticket: React.FC<TicketProps> = ({
             alt="logo"
             width={50}
             height={50}
-            className="w-[100px] h-[50px]"
+            className="w-[50px] md:w-[100px] h-[50px] object-contain"
           />
         </div>
-        <div className="flex-1 flex justify-between">
+        <div className="flex-1 flex justify-between gap-2 md:gap-0">
           <div className="flex flex-col gap-3">
-            <h2 className="text-[#435B5A] text-xl">{flight.start_airport}</h2>
+            <h2 className="text-[#435B5A] text-[0.8rem] md:text-xl">
+              {flight.start_airport}
+            </h2>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <p className="text-[#435B5A] text-[0.4rem] font-semibold">
+            <p className="text-[#435B5A] text-[0.4rem] font-semibold text-nowrap">
               {flight.airline.toUpperCase()}
             </p>
-            <p className="text-sm text-[#C99C33] font-medium">
+            <p className="text-[0.65rem] md:text-sm text-[#C99C33] font-medium">
               {convertTimeFormat(flight.duration)}
             </p>
-            <p className="text-[#435B5A] text-[0.8rem] font-semibold">
+            <p className="text-[#435B5A] text-[0.6rem] md:text-[0.8rem] font-semibold">
               {flight.mode === "one-stop"
                 ? "ONE STOP"
                 : flight.mode === "non-stop"
@@ -70,17 +72,17 @@ const Ticket: React.FC<TicketProps> = ({
             </p>
           </div>
           <div className="flex flex-col gap-3">
-            <h2 className="text-[#435B5A] text-xl">
+            <h2 className="text-[#435B5A] text-[0.8rem] md:text-xl">
               {flight.destination_airport}
             </h2>
           </div>
         </div>
-        <div className="flex-[0.6] flex flex-col items-end gap-4">
+        <div className="md:flex-[0.6] flex flex-col items-end gap-4">
           <p className="text-[#435B5A] text-[0.7rem] font-semibold">
             ${flight.price.toLocaleString()}
           </p>{" "}
           <Link href={`/flights/flight_${flight.id.toLowerCase()}`}>
-            <button className="flex-1 bg-[#C99C33] rounded-full py-2 flex items-center justify-center px-6 text-white text-[0.5rem]">
+            <button className="flex-1 bg-[#C99C33] rounded-full py-2 flex items-center justify-center px-2 md:px-6 text-white text-[0.5rem]">
               BOOK NOW
             </button>
           </Link>

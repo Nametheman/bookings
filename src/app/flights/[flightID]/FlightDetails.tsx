@@ -22,10 +22,10 @@ const FlightDetails = () => {
   );
 
   return (
-    <div className="col-span-7 border-r-[3px] border-dashed h-full border-[#939393] pr-8">
+    <div className="col-span-7 md:border-r-[3px] border-dashed h-full border-[#939393] pr-0 md:pr-4 lg:pr-8">
       <div
         onClick={() => router.back()}
-        className="flex items-center text-sm text-[#435B5A] mb-6 cursor-pointer"
+        className="flex items-center text-sm text-[#435B5A] mt-8 md:mt-0 mb-6 cursor-pointer"
       >
         <IoIosArrowRoundBack size={20} />
         <p>Back</p>

@@ -59,7 +59,7 @@ const ClientComponent = () => {
           </p>
           <div className="col-span-4 flex items-center gap-1 lg:gap-6 justify-between">
             <button
-              className="text-[0.7rem] text-[#435B5A] flex-1 lg:flex-[0.8] bg-white h-[35px] rounded-full"
+              className="text-[0.7rem] text-[#435B5A] flex-1 lg:flex-[0.8] bg-white h-[35px] rounded-full w-[150px]"
               onClick={clearFilter}
             >
               CLEAR FILTER

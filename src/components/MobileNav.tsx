@@ -46,7 +46,7 @@ const MobileNav = () => {
   return (
     <nav className="sm:block lg:hidden pt-3">
       <Sheet>
-        <SheetTrigger className="w-[50px] h-[50px] bg-[#435B5A] text-white flex justify-center items-center rounded-md">
+        <SheetTrigger className="w-[50px] h-[50px] sm:h-full bg-[#435B5A] text-white flex justify-center items-center sm:items-start sm:sticky rounded-md">
           <MdOutlineMenu size={30} />
         </SheetTrigger>
         <SheetContent
